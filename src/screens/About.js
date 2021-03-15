@@ -1,22 +1,4 @@
-import React from 'react';
-import {View,StyleSheet,Text} from 'react-native'
 
-export default function AboutScreen(){
-    return(
-    <View>
-        <Text>About the application
-        {""}
-        Login{""}
-        You can login using either Google or Facebook credentials{""}
-        SignUp{""}
-        If you don't have an account create one{""}
-        To-Do List{""}
-        You can list your tasks to do </Text>
-    
-        </View>
-        );
-    
-}
 import React from "react";
 import { StyleSheet, Text, View, SafeAreaView, SectionList, StatusBar } from "react-native";
 

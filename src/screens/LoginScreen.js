@@ -24,7 +24,7 @@ export default function LoginScreen() {
       <KeyboardAwareScrollView
         style={{flex: 1, width: '100%'}}
         keyboardShouldPersistTaps="always">
-        <Image styles={styles.logo} source={require('../../../assets/icon.png')} />
+        <Image styles={styles.logo} source={require('../../assets/icon.png')} />
 
         <TextInput
           style={styles.input}
