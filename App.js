@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import  LoginScreen from './src/screens/LoginScreen';
-import { HomeScreen} from './src/screens/HomeScreen';
+import HomeScreen from './src/screens/HomeScreen';
 import  RegistrationScreen  from './src/screens/RegistrationScreen'
 import AboutScreen from './src/screens/About'
 /*import {decode, encode} from 'base-64'
@@ -20,13 +20,7 @@ const Stack = createStackNavigator();
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/*{ user ? (
-          <Stack.Screen name="Home">
-            {props => }
-          </Stack.Screen>
-        ) : (
-        <>*/}
-          <HomeScreen  />
+          <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Registration" component={RegistrationScreen} />
         <Stack.Screen name="About" component={AboutScreen} />
