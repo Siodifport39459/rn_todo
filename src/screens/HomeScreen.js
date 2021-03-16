@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import {View,StyleSheet,FlatList,Button,Text} from 'react-native';
-import TaskInput from './components/Task/TaskInput';
-import TaskItem from './components/Task/TaskItem'
+import TaskInput from '../../components/TaskInput';
+import TaskItem from '../../components/TaskItem'
 
 export default function HomeScreen(){
    const [isAddTaskMode,setAddTaskMode]=useState(false);
