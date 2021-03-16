@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, SafeAreaView, SectionList, StatusBar } from "re
 const DATA = [
   {
     title: "Login",
-    data: ["You can login using either Google or Facebook credentials", "Go to login", "create your own accoun"]
+    data: ["You can login using either Google or Facebook credentials", "if not Go to login and create your own accoun",""]
   },
   {
     title: "SignUp",

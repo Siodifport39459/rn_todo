@@ -3,9 +3,15 @@ import {View,StyleSheet,FlatList,Button,Text} from 'react-native';
 import TaskInput from '../../components/TaskInput';
 import TaskItem from '../../components/TaskItem'
 
-export default function HomeScreen(){
+export default function HomeScreen({navigation}){
    const [isAddTaskMode,setAddTaskMode]=useState(false);
    const [taskList,setTaskList]=useState([]);
+   const onClickAbout= () =>{
+     navigation.navigate('About')
+   };
+   const onClickLogin= () =>{
+    navigation.navigate('Login')
+  }
    
    const taskAddHandler= taskTitle =>{
     setTaskList(currentTasks=>
@@ -25,6 +31,9 @@ export default function HomeScreen(){
 
    return(
      <View style={styles.container}>
+       <View><Text style={styles.text} onPress={onClickAbout}>About</Text>
+       <Text style={styles.text} onPress={onClickLogin}>Login</Text>
+       </View>
        <Text style={styles.text}>Today's Tasks</Text>
        <View style={styles.rowitem}>
        <Button
@@ -41,7 +50,7 @@ export default function HomeScreen(){
        />
        <FlatList
        data={taskList}
-       keyExtractor={({item,index}) => item.id}
+       keyExtractor={({item,index}) => item.id.toString()}
        renderItem={itemData =>(
         <TaskItem
         id={itemData.item.id}
