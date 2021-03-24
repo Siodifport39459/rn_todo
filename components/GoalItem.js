@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const TaskItem = props => {
+const GoalItem = props => {
   return (
     <TouchableOpacity onPress={props.onDelete.bind(this, props.id)} >
       <View style={styles.listItem}>
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TaskItem;
+export default GoalItem;

@@ -4,6 +4,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import styles from './styleslogin';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { auth, signInWithGoogle } from '../firebase/config';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -18,6 +19,9 @@ export default function LoginScreen() {
   const onLoginPress = () => {
     console.log('clicked on login button');
   };
+  const SignInWithFacebook = ()=> {
+    console.log('clicked signIn With Facebook')
+  }
 
   //html render
 
@@ -51,6 +55,12 @@ export default function LoginScreen() {
 
         <TouchableOpacity style={styles.button} onPress={() => onLoginPress()}>
           <Text style={styles.buttonTitle}>Log In</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={signInWithGoogle} isGoogleSignIn>
+          <Text style={styles.buttonTitle}>SignInWithGoogle</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={SignInWithFacebook} isFacebookSignIn>
+          <Text style={styles.buttonTitle}>SignInWithFacebook</Text>
         </TouchableOpacity>
 
         <View style={styles.footerView}>

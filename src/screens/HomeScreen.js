@@ -1,103 +1,92 @@
-import React,{useState} from 'react';
-import {View,StyleSheet,FlatList,Button,Text} from 'react-native';
-import TaskInput from '../../components/TaskInput';
-import TaskItem from '../../components/TaskItem'
+import React,{ useState } from 'react';
+import {StyleSheet,View,Button,FlatList,Text} from 'react-native'
+//import AboutScreen from './AboutScreen/AboutScreen'
+import GoalItem from '../../components/GoalItem';
+import GoalInput from '../../components/GoalInput';
+import styles from './styleshome';
 
-export default function HomeScreen({navigation}){
-   const [isAddTaskMode,setAddTaskMode]=useState(false);
-   const [taskList,setTaskList]=useState([]);
-   const onClickAbout= () =>{
-     navigation.navigate('About')
-   };
-   const onClickLogin= () =>{
-    navigation.navigate('Login')
-  }
-   
-   const taskAddHandler= taskTitle =>{
-    setTaskList(currentTasks=>
-      [...currentTasks,{id: Math.random().toString(),value:taskTitle}]
-    );
-    setAddTaskMode(false);
-  };
-  const taskCancelHandler= ()=>{
-    setAddTaskMode(false);
 
-  };
-  const removeTask= TaskId => {
-    setTaskList(currentTasks => {
-      return currentTasks.filter(task =>task.id !== TaskId);
-    });
-  };
 
-   return(
+export default function HomeScreen({navigation}) {
+
+    const [courseGoals, setCourseGoals] = useState([]);
+    const [isAddMode, setIsAddMode] = useState(false);
+
+    
+    const onClickLogin= () =>{
+      navigation.navigate('Login')
+    }
+    const onClickRegistration = () =>  {
+      navigation.navigate('Registration')
+
+    }
+    const onClickLocation = () =>  {
+      navigation.navigate('GeoLocation')
+
+    }
+    const onClickAddImage = () =>{
+      navigation.navigate('ImagePicker')
+
+    }
+
+  
+    const addGoalHandler = goalTitle => {
+      setCourseGoals(currentGoals => [
+        ...currentGoals,
+        { id: Math.random().toString(), value: goalTitle }
+      ]);
+      setIsAddMode(false);
+    };
+  
+    const removeGoalHandler = goalId => {
+      setCourseGoals(currentGoals => {
+        return currentGoals.filter(goal => goal.id !== goalId);
+      });
+    };
+  
+    const cancelGoalAdditionHandler = () => {
+      setIsAddMode(false);
+    };
+  
+    return (
+        
+      <View>
+        <Text style={styles.text} onPress={onClickLogin}>Login</Text>
+        <Text style={styles.text} onPress={onClickRegistration}>SignUp</Text>
+        <Text style={styles.text} onPress={onClickLocation}>Location</Text>
+        <Text style={styles.text} onPress={onClickAddImage}>Add Image</Text>
+        
      <View style={styles.container}>
-       <View><Text style={styles.text} onPress={onClickAbout}>About</Text>
-       <Text style={styles.text} onPress={onClickLogin}>Login</Text>
-       </View>
+       
        <Text style={styles.text}>Today's Tasks</Text>
-       <View style={styles.rowitem}>
-       <Button
-       style={styles.button}
-       onPress={() =>setAddTaskMode(true)}
-       title="ADD"
-       color="#841584"
-       />
-       </View>
-       <TaskInput
-       visible={isAddTaskMode}
-       onAddTask={taskAddHandler}
-       onCancel={taskCancelHandler}
-       />
-       <FlatList
-       data={taskList}
-       keyExtractor={({item,index}) => item.id.toString()}
-       renderItem={itemData =>(
-        <TaskItem
-        id={itemData.item.id}
-        title={itemData.item.value}
-        onDelete={removeTask}
+
+        <Button title="Add New Goal" onPress={() => setIsAddMode(true)} />
+        <View style={styles.container}>
+        <GoalInput
+          visible={isAddMode}
+          onAddGoal={addGoalHandler}
+          onCancel={cancelGoalAdditionHandler}
         />
-       )}
-       />
-      
-     </View>
-
-   );
-
-}
-
-const styles=StyleSheet.create({
-  container:{
-    flex:1,
-    backgroundcolor:'#D3D3D3'
-  },
-  text:{
-    fontSize:20,
-    fontWeight:'bold',
-    paddingTop:20,
-    paddingBottom:10
-  },
-  rowitem:{
-    flexDirection:'row',
-   
-  },
-  input:{
-    height:40,
-    margin:12,
-    borderRadius:5,
-    borderWidth:1,
-    padding:5,
-    textAlign:'center'
-  },
-  button:{
+        <FlatList
+          keyExtractor={(item, index) => item.id}
+          data={courseGoals}
+          renderItem={itemData => (
+            <GoalItem
+              id={itemData.item.id}
+              onDelete={removeGoalHandler}
+              title={itemData.item.value}
+            />
+          )}
+        />
+        </View>
+          
+       
+       
+       
+      </View>
+      </View>
     
-    textAlign:'center',
-    borderRadius:5,
-    height:30,
-    width:12
-
-  },
-})
- 
     
-
+        
+    );
+  }

@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Alert, Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import styles from './stylesregistration';
+import { auth, signInWithGoogle ,signInWithFacebook} from '../firebase/config';
 
 import {firebase} from '../firebase/config';
 
@@ -12,32 +13,44 @@ export default function RegistrationScreen({navigation}) {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const onFooterLinkPress = () => {
-    navigation.navigate('Login');
+    navigation.navigate('LoginScreen');
+    
   };
 
   const onRegisterPress = () => {
     //process of registration
+    navigation.navigate('LoginScreen');
+
     if (password !== confirmPassword) {
       alert('passwords dont match, try again!');
       return;
+
+     
+    
+     
     }
+  
     //authentication process - registration
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then((response) => {
+        console.log('hiii')
         const uid = response.user.id;
         const data = {
           id: uid,
           email,
           fullName,
         };
+      
+
         const usersRef = firebase.firestore().collection('users');
         usersRef
           .doc(uid)
           .set(data)
           .then(() => {
-            navigation.navigate('Home', {user: data});
+            navigation.navigate('HomeScreen', {user: data});
+            console.log('hiii')
           })
           .catch((error) => {
             alert(error);
@@ -53,10 +66,10 @@ export default function RegistrationScreen({navigation}) {
       <KeyboardAwareScrollView
         style={{flex: 1, width: '100%'}}
         keyboardShouldPersistTaps="always">
-        <Image
+        {/*<Image
           style={styles.logo}
-          source={require('../../assets/icon.png')}
-       />
+          source={require('../../../assets/splash.png')}
+        />*/}
         <TextInput
           style={styles.input}
           placeholder="Full Name"
@@ -100,6 +113,16 @@ export default function RegistrationScreen({navigation}) {
           onPress={() => onRegisterPress()}>
           <Text style={styles.buttonTitle}>Create account</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={signInWithGoogle} >
+          <Text style={styles.buttonTitle}>SignIn with Google</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={signInWithFacebook} >
+          <Text style={styles.buttonTitle}>SignIn with Facebook</Text>
+        </TouchableOpacity>
         <View style={styles.footerView}>
           <Text style={styles.footerText}>
             Already got an account?{' '}
@@ -107,6 +130,8 @@ export default function RegistrationScreen({navigation}) {
               Log in
             </Text>
           </Text>
+
+
         </View>
       </KeyboardAwareScrollView>
     </View>
